@@ -9,7 +9,7 @@ import SwiftUI
 enum ContactType: String, Codable {
     case phone
     case email
-    case whatsApp
+    case whatsApp = "whatsapp"
     case sms
 
     var imageName: String? {

@@ -7,10 +7,14 @@ import SwiftUI
 
 struct TahuduTabView: View {
     @State private var selectedTab = Tabs.search.rawValue
-
+    let dependencies: AppDependencies
+    
+    init(dependencies: AppDependencies) {
+        self.dependencies = dependencies
+    }
     var body: some View {
         TabView(selection: $selectedTab) {
-            SearchView()
+            SearchView(listingsFetching: dependencies.listingsFetching)
                 .tag(Tabs.search.rawValue)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
@@ -41,6 +45,6 @@ enum Tabs: Int, CaseIterable {
 
 struct TahuduTabView_Previews: PreviewProvider {
     static var previews: some View {
-        TahuduTabView()
+        TahuduTabView(dependencies: .preview())
     }
 }

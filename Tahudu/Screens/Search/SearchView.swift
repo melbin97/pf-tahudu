@@ -7,22 +7,33 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @StateObject var viewModel: SearchViewModel = .init()
+    @StateObject private var viewModel: SearchViewModel
+    
+    init(listingsFetching: ListingsFetching) {
+        _viewModel = StateObject(wrappedValue: SearchViewModel(listingsFetching: listingsFetching))
+    }
     
     var body: some View {
         VStack {
             toolBar
             ClearableTextField(label: "City, area or building", symbol: "magnifyingglass", text: $viewModel.searchText) { _ in
-                //do something
+                //TODO: print some statement
             }
             ScrollView {
-                // listing card
                 LazyVStack {
-                    ListingCardView(listingInfo: Listing.mockList()[0])
+                    ForEach(viewModel.listings) { listing in
+                        ListingCardView(listingInfo: listing) { contactType in
+                            viewModel.onContactTap(contactType: contactType)
+                        }
+                    }
                 }
             }
         }
         .padding(12)
+        .redacted(reason: viewModel.isLoading ? .placeholder : [])
+        .task {
+            await viewModel.getListings()
+        }
     }
 }
 
@@ -32,7 +43,7 @@ extension SearchView {
         HStack(spacing: 20) {
             Group {
                 Button {
-                    //do some filter
+                    //TODO: Do filter
                 } label: {
                     Image(systemName: "slider.horizontal.3")
                         .resizable()
@@ -40,7 +51,7 @@ extension SearchView {
                 }
 
                 Button {
-                    // do sorting
+                    //TODO: Do sort
                 } label: {
                     Image(systemName: "arrow.up.arrow.down")
                         .resizable()
@@ -49,7 +60,7 @@ extension SearchView {
 
                 Spacer()
                 Button {
-                    // star the property
+                    //TODO: Add fav
                 } label: {
                     Image(systemName: "star")
                         .resizable()
@@ -62,6 +73,6 @@ extension SearchView {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        SearchView(listingsFetching: AppDependencies.preview().listingsFetching)
     }
 }

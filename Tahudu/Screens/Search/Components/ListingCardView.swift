@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ListingCardView: View {
     var listingInfo: Listing
+    var onContactTap: (ContactType) -> ()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -17,7 +18,7 @@ struct ListingCardView: View {
                 //carousal
                 TabView {
                     ForEach(listingInfo.images, id: \.self) { image in
-                        Image(image)
+                        Image(image.pascalCase)
                             .resizable()
                     }
                 }
@@ -66,7 +67,7 @@ struct ListingCardView: View {
                     HStack(spacing: 12) {
                         ForEach(listingInfo.contactOptions, id: \.self) { option in
                             ContactButton(option) {
-                                //do somethin
+                                onContactTap(option)
                             }
                         }
                     }
@@ -149,6 +150,8 @@ struct ListingCardView: View {
 
 struct ListingCardView_Previews: PreviewProvider {
     static var previews: some View {
-        ListingCardView(listingInfo: Listing.mockList()[1])
+        ListingCardView(listingInfo: Listing.mockList()[1]) { type in
+            print("Contact Type")
+        }
     }
 }

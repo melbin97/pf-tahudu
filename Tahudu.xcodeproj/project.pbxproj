@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,10 @@
 		BA8B000A2F90E90900C0A1CF /* ListingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00092F90E8FD00C0A1CF /* ListingCardView.swift */; };
 		BA8B000C2F90ECE400C0A1CF /* ListingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B000B2F90ECDD00C0A1CF /* ListingResponse.swift */; };
 		BA8B000E2F90F30C00C0A1CF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B000D2F90F30B00C0A1CF /* Date.swift */; };
+		BA8B00112F910FE900C0A1CF /* ListingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00102F910FD000C0A1CF /* ListingManager.swift */; };
+		BA8B00132F9115D500C0A1CF /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00122F9115D000C0A1CF /* String.swift */; };
+		BA8B00162F911AD400C0A1CF /* URLSessionAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00152F911ACF00C0A1CF /* URLSessionAPIClient.swift */; };
+		BA8B00212F91240F00C0A1CF /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00202F91240B00C0A1CF /* AppDependencies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +61,15 @@
 		BA8B00092F90E8FD00C0A1CF /* ListingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCardView.swift; sourceTree = "<group>"; };
 		BA8B000B2F90ECDD00C0A1CF /* ListingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingResponse.swift; sourceTree = "<group>"; };
 		BA8B000D2F90F30B00C0A1CF /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		BA8B00102F910FD000C0A1CF /* ListingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingManager.swift; sourceTree = "<group>"; };
+		BA8B00122F9115D000C0A1CF /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		BA8B00152F911ACF00C0A1CF /* URLSessionAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionAPIClient.swift; sourceTree = "<group>"; };
+		BA8B00202F91240B00C0A1CF /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		BA8B00142F911AAB00C0A1CF /* Protocols */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Protocols; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		1F479B9F26EF162000F863AC /* Frameworks */ = {
@@ -99,6 +111,8 @@
 		1F479BA426EF162000F863AC /* Tahudu */ = {
 			isa = PBXGroup;
 			children = (
+				BA8B001F2F9123FD00C0A1CF /* Dependencies */,
+				BA8B000F2F9103C600C0A1CF /* Services */,
 				1F479BD226EF181900F863AC /* Components */,
 				1F479BD026EF17F600F863AC /* Assets */,
 				1F479BCF26EF17EC00F863AC /* Extensions */,
@@ -130,6 +144,7 @@
 		1F479BCF26EF17EC00F863AC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BA8B00122F9115D000C0A1CF /* String.swift */,
 				BA8B000D2F90F30B00C0A1CF /* Date.swift */,
 				1F566C05272963EE000D4E93 /* Image.swift */,
 			);
@@ -215,6 +230,24 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		BA8B000F2F9103C600C0A1CF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BA8B00142F911AAB00C0A1CF /* Protocols */,
+				BA8B00152F911ACF00C0A1CF /* URLSessionAPIClient.swift */,
+				BA8B00102F910FD000C0A1CF /* ListingManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BA8B001F2F9123FD00C0A1CF /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				BA8B00202F91240B00C0A1CF /* AppDependencies.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -229,6 +262,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BA8B00142F911AAB00C0A1CF /* Protocols */,
 			);
 			name = Tahudu;
 			productName = Tahudu;
@@ -316,18 +352,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F479BDD26EF1AD400F863AC /* SearchView.swift in Sources */,
+				BA8B00162F911AD400C0A1CF /* URLSessionAPIClient.swift in Sources */,
 				BA8B000C2F90ECE400C0A1CF /* ListingResponse.swift in Sources */,
 				1F479BD726EF1A0200F863AC /* Colors.swift in Sources */,
 				1F479BD526EF18B800F863AC /* ClearableTextField.swift in Sources */,
 				1F479BDF26EF1AE600F863AC /* SettingsView.swift in Sources */,
 				1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */,
 				1F566C08272964C6000D4E93 /* ContactType.swift in Sources */,
+				BA8B00212F91240F00C0A1CF /* AppDependencies.swift in Sources */,
 				1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */,
 				BA8B000A2F90E90900C0A1CF /* ListingCardView.swift in Sources */,
 				BA8B000E2F90F30C00C0A1CF /* Date.swift in Sources */,
 				1F479BEB26EF333800F863AC /* ContactButton.swift in Sources */,
 				BA8B00072F90D18300C0A1CF /* ViewModel.swift in Sources */,
+				BA8B00112F910FE900C0A1CF /* ListingManager.swift in Sources */,
 				1F479BEE26F06FDD00F863AC /* SettingsViewController.swift in Sources */,
+				BA8B00132F9115D500C0A1CF /* String.swift in Sources */,
 				1F566C0927296594000D4E93 /* Image.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
