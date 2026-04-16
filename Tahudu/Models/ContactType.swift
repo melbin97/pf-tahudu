@@ -6,7 +6,7 @@
 import SwiftUI
 
 /// Represents the various contact types
-enum ContactType {
+enum ContactType: String, Codable {
     case phone
     case email
     case whatsApp

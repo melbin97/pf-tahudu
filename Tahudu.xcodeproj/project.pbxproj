@@ -22,6 +22,8 @@
 		1F566C0927296594000D4E93 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F566C05272963EE000D4E93 /* Image.swift */; };
 		BA8B00072F90D18300C0A1CF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00062F90D18000C0A1CF /* ViewModel.swift */; };
 		BA8B000A2F90E90900C0A1CF /* ListingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00092F90E8FD00C0A1CF /* ListingCardView.swift */; };
+		BA8B000C2F90ECE400C0A1CF /* ListingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B000B2F90ECDD00C0A1CF /* ListingResponse.swift */; };
+		BA8B000E2F90F30C00C0A1CF /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B000D2F90F30B00C0A1CF /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		1F566C072729641D000D4E93 /* ContactType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactType.swift; sourceTree = "<group>"; };
 		BA8B00062F90D18000C0A1CF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		BA8B00092F90E8FD00C0A1CF /* ListingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCardView.swift; sourceTree = "<group>"; };
+		BA8B000B2F90ECDD00C0A1CF /* ListingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingResponse.swift; sourceTree = "<group>"; };
+		BA8B000D2F90F30B00C0A1CF /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +130,7 @@
 		1F479BCF26EF17EC00F863AC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BA8B000D2F90F30B00C0A1CF /* Date.swift */,
 				1F566C05272963EE000D4E93 /* Image.swift */,
 			);
 			path = Extensions;
@@ -196,6 +201,7 @@
 		1F566C0627296406000D4E93 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BA8B000B2F90ECDD00C0A1CF /* ListingResponse.swift */,
 				1F566C072729641D000D4E93 /* ContactType.swift */,
 			);
 			path = Models;
@@ -310,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F479BDD26EF1AD400F863AC /* SearchView.swift in Sources */,
+				BA8B000C2F90ECE400C0A1CF /* ListingResponse.swift in Sources */,
 				1F479BD726EF1A0200F863AC /* Colors.swift in Sources */,
 				1F479BD526EF18B800F863AC /* ClearableTextField.swift in Sources */,
 				1F479BDF26EF1AE600F863AC /* SettingsView.swift in Sources */,
@@ -317,6 +324,7 @@
 				1F566C08272964C6000D4E93 /* ContactType.swift in Sources */,
 				1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */,
 				BA8B000A2F90E90900C0A1CF /* ListingCardView.swift in Sources */,
+				BA8B000E2F90F30C00C0A1CF /* Date.swift in Sources */,
 				1F479BEB26EF333800F863AC /* ContactButton.swift in Sources */,
 				BA8B00072F90D18300C0A1CF /* ViewModel.swift in Sources */,
 				1F479BEE26F06FDD00F863AC /* SettingsViewController.swift in Sources */,
