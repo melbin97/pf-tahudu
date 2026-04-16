@@ -13,6 +13,8 @@ class SearchViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String? = nil
     
+    var favs = Set<String>()
+    
     private var listingsManager: ListingsFetching
     
     init(listingsFetching: ListingsFetching) {

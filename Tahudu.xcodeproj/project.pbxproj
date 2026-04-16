@@ -28,6 +28,7 @@
 		BA8B00132F9115D500C0A1CF /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00122F9115D000C0A1CF /* String.swift */; };
 		BA8B00162F911AD400C0A1CF /* URLSessionAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00152F911ACF00C0A1CF /* URLSessionAPIClient.swift */; };
 		BA8B00212F91240F00C0A1CF /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00202F91240B00C0A1CF /* AppDependencies.swift */; };
+		BA8B00292F914E8C00C0A1CF /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00282F914E7500C0A1CF /* UserDefaultsStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		BA8B00122F9115D000C0A1CF /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		BA8B00152F911ACF00C0A1CF /* URLSessionAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionAPIClient.swift; sourceTree = "<group>"; };
 		BA8B00202F91240B00C0A1CF /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		BA8B00282F914E7500C0A1CF /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
+		BA8B002A2F9152B200C0A1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -111,6 +114,7 @@
 		1F479BA426EF162000F863AC /* Tahudu */ = {
 			isa = PBXGroup;
 			children = (
+				BA8B002A2F9152B200C0A1CF /* Info.plist */,
 				BA8B001F2F9123FD00C0A1CF /* Dependencies */,
 				BA8B000F2F9103C600C0A1CF /* Services */,
 				1F479BD226EF181900F863AC /* Components */,
@@ -234,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				BA8B00142F911AAB00C0A1CF /* Protocols */,
+				BA8B00282F914E7500C0A1CF /* UserDefaultsStorage.swift */,
 				BA8B00152F911ACF00C0A1CF /* URLSessionAPIClient.swift */,
 				BA8B00102F910FD000C0A1CF /* ListingManager.swift */,
 			);
@@ -360,6 +365,7 @@
 				1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */,
 				1F566C08272964C6000D4E93 /* ContactType.swift in Sources */,
 				BA8B00212F91240F00C0A1CF /* AppDependencies.swift in Sources */,
+				BA8B00292F914E8C00C0A1CF /* UserDefaultsStorage.swift in Sources */,
 				1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */,
 				BA8B000A2F90E90900C0A1CF /* ListingCardView.swift in Sources */,
 				BA8B000E2F90F30C00C0A1CF /* Date.swift in Sources */,
@@ -518,6 +524,7 @@
 				DEVELOPMENT_TEAM = ZC869D3D9T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tahudu/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -548,6 +555,7 @@
 				DEVELOPMENT_TEAM = ZC869D3D9T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tahudu/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
