@@ -12,13 +12,27 @@ class SearchViewModel: ObservableObject {
     @Published var listings: [Listing] = []
     @Published var isLoading = false
     @Published var errorMessage: String? = nil
+    @Published var showFavouritesOnly = false
     
-    var favs = Set<String>()
+    @Published var favoriteIds: Set<String> = [] {
+        didSet {
+            keyValueStore.save(value: favoriteIds, key: .favourites)
+        }
+    }
     
     private var listingsManager: ListingsFetching
+    private var keyValueStore: StorageService
     
-    init(listingsFetching: ListingsFetching) {
+    var displayListings: [Listing] {
+        if showFavouritesOnly {
+            return listings.filter({ favoriteIds.contains($0.id) })
+        }
+        return listings
+    }
+    
+    init(listingsFetching: ListingsFetching, keyValueStore: StorageService) {
         self.listingsManager = listingsFetching
+        self.keyValueStore = keyValueStore
     }
     
     func getListings() async {
@@ -37,5 +51,21 @@ class SearchViewModel: ObservableObject {
     
     func onContactTap(contactType: ContactType) {
         print("\(contactType.rawValue) Tapped")
+    }
+    
+    func loadFavourites() {
+        self.favoriteIds = keyValueStore.get(key: .favourites) ?? []
+    }
+    
+    func toggleFavourites(id: String) {
+        if favoriteIds.contains(id) {
+            favoriteIds.remove(id)
+        } else {
+            favoriteIds.insert(id)
+        }
+    }
+    
+    func isFavourite(id: String) -> Bool {
+        return favoriteIds.contains(id)
     }
 }

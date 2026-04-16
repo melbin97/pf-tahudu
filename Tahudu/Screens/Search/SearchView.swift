@@ -9,8 +9,9 @@ struct SearchView: View {
     
     @StateObject private var viewModel: SearchViewModel
     
-    init(listingsFetching: ListingsFetching) {
-        _viewModel = StateObject(wrappedValue: SearchViewModel(listingsFetching: listingsFetching))
+    init(listingsFetching: ListingsFetching, keyValueStore: StorageService) {
+        _viewModel = StateObject(wrappedValue: SearchViewModel(listingsFetching: listingsFetching,
+                                                               keyValueStore: keyValueStore))
     }
     
     var body: some View {
@@ -21,9 +22,11 @@ struct SearchView: View {
             }
             ScrollView {
                 LazyVStack {
-                    ForEach(viewModel.listings) { listing in
-                        ListingCardView(listingInfo: listing) { contactType in
+                    ForEach(viewModel.displayListings) { listing in
+                        ListingCardView(listingInfo: listing, isFavourite: viewModel.isFavourite(id: listing.id)) { contactType in
                             viewModel.onContactTap(contactType: contactType)
+                        } toggleFavourite: { id in
+                            viewModel.toggleFavourites(id: id)
                         }
                     }
                 }
@@ -33,6 +36,9 @@ struct SearchView: View {
         .redacted(reason: viewModel.isLoading ? .placeholder : [])
         .task {
             await viewModel.getListings()
+        }
+        .onAppear {
+            viewModel.loadFavourites()
         }
     }
 }
@@ -60,9 +66,9 @@ extension SearchView {
 
                 Spacer()
                 Button {
-                    //TODO: Add fav
+                    viewModel.showFavouritesOnly.toggle()
                 } label: {
-                    Image(systemName: "star")
+                    Image(systemName: viewModel.showFavouritesOnly ? "star.fill" : "star")
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
@@ -73,6 +79,6 @@ extension SearchView {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(listingsFetching: AppDependencies.preview().listingsFetching)
+        SearchView(listingsFetching: AppDependencies.preview().listingsFetching, keyValueStore: AppDependencies.preview().keyValueStore)
     }
 }

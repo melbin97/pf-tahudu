@@ -14,7 +14,7 @@ struct TahuduTabView: View {
     }
     var body: some View {
         TabView(selection: $selectedTab) {
-            SearchView(listingsFetching: dependencies.listingsFetching)
+            SearchView(listingsFetching: dependencies.listingsFetching, keyValueStore: dependencies.keyValueStore)
                 .tag(Tabs.search.rawValue)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")

@@ -10,7 +10,9 @@ import SwiftUI
 
 struct ListingCardView: View {
     var listingInfo: Listing
+    var isFavourite: Bool
     var onContactTap: (ContactType) -> ()
+    var toggleFavourite: (String) -> ()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -99,13 +101,17 @@ struct ListingCardView: View {
                     }
                 }
                 Spacer()
-                VStack {
-                    Image(systemName: "heart")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .medium))
-                        .frame(width: 40, height: 40)
-                        .background(.ultraThinMaterial)
-                        .clipShape(Circle())
+                Button {
+                    toggleFavourite(listingInfo.id)
+                } label: {
+                    VStack {
+                        Image(systemName: isFavourite ? "heart.fill" : "heart")
+                            .foregroundColor(isFavourite ? .red : .white)
+                            .font(.system(size: 20, weight: .medium))
+                            .frame(width: 40, height: 40)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Circle())
+                    }
                 }
             }
             .padding()
@@ -150,8 +156,8 @@ struct ListingCardView: View {
 
 struct ListingCardView_Previews: PreviewProvider {
     static var previews: some View {
-        ListingCardView(listingInfo: Listing.mockList()[1]) { type in
+        ListingCardView(listingInfo: Listing.mockList()[1], isFavourite: false) { type in
             print("Contact Type")
-        }
+        } toggleFavourite: { _ in }
     }
 }
