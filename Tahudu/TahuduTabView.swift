@@ -6,7 +6,7 @@
 import SwiftUI
 
 struct TahuduTabView: View {
-    @State private var selectedTab = Tabs.search.rawValue
+    @State private var selectedTab: Tabs = .search
     let dependencies: AppDependencies
     
     init(dependencies: AppDependencies) {
@@ -14,7 +14,7 @@ struct TahuduTabView: View {
     }
     var body: some View {
         TabView(selection: $selectedTab) {
-            SearchView(listingsFetching: dependencies.listingsFetching, keyValueStore: dependencies.keyValueStore)
+            SearchView(listingService: dependencies.listingService, keyValueStore: dependencies.keyValueStore)
                 .tag(Tabs.search.rawValue)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
@@ -22,10 +22,11 @@ struct TahuduTabView: View {
             SettingsView()
                 .tag(Tabs.settings.rawValue)
                 .tabItem {
-                    Label("My Account", systemImage: selectedTab == Tabs.settings.rawValue ? "person.fill" : "person")
+                    Label("My Account", systemImage: "person")
                 }
                 .edgesIgnoringSafeArea(.all)
         }
+        .tint(.brand)
     }
 }
 

@@ -19,11 +19,11 @@ class SearchViewModel: ObservableObject {
         }
     }
     
-    private var listingsManager: ListingService
+    private var listingService: ListingService
     private var keyValueStore: StorageService
     
-    init(listingsFetching: ListingService, keyValueStore: StorageService) {
-        self.listingsManager = listingsFetching
+    init(listingService: ListingService, keyValueStore: StorageService) {
+        self.listingService = listingService
         self.keyValueStore = keyValueStore
         self.loadFavourites()
     }
@@ -49,7 +49,7 @@ class SearchViewModel: ObservableObject {
         isLoading = true
         hasError = false
         do {
-            let response = try await listingsManager.getListings()
+            let response = try await listingService.getListings()
             listings = response.listings
         } catch(let error) {
             print("DEBUG - SearchViewModel: Listing error: \(error.localizedDescription)")

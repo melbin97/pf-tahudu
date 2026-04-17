@@ -11,6 +11,7 @@ class SettingsViewController: UITableViewController {
     override func loadView() {
         super.loadView()
         
+        tableView.tintColor = .systemBlue
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .systemGroupedBackground

@@ -7,18 +7,18 @@
 import Foundation
 
 struct AppDependencies {
-    let listingsFetching: ListingService
+    let listingService: ListingService
     let keyValueStore: StorageService
     
     static func live() -> AppDependencies {
         let apiClient = URLSessionAPIClient()
         let listings = ListingManager(apiClient: apiClient)
         let userDefaultsStorage = UserDefaultsStorage()
-        return AppDependencies(listingsFetching: listings, keyValueStore: userDefaultsStorage)
+        return AppDependencies(listingService: listings, keyValueStore: userDefaultsStorage)
     }
     
     static func preview() -> AppDependencies {
-        return AppDependencies(listingsFetching: MockListingsFetching(), keyValueStore: MockStorage())
+        return AppDependencies(listingService: MockListingsFetching(), keyValueStore: MockStorage())
     }
 }
 

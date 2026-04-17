@@ -10,9 +10,9 @@ struct SettingsView: UIViewControllerRepresentable {
         let settingsViewController = SettingsViewController.init(style: .insetGrouped)
         settingsViewController.title = "My Account"
 
-        let navigatoinController = UINavigationController(rootViewController: settingsViewController)
-        navigatoinController.navigationBar.prefersLargeTitles = true
-        return navigatoinController
+        let navigationController = UINavigationController(rootViewController: settingsViewController)
+        navigationController.navigationBar.prefersLargeTitles = true
+        return navigationController
     }
 
     func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {

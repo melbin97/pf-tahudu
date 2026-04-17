@@ -9,8 +9,8 @@ struct SearchView: View {
     
     @StateObject private var viewModel: SearchViewModel
     
-    init(listingsFetching: ListingService, keyValueStore: StorageService) {
-        _viewModel = StateObject(wrappedValue: SearchViewModel(listingsFetching: listingsFetching,
+    init(listingService: ListingService, keyValueStore: StorageService) {
+        _viewModel = StateObject(wrappedValue: SearchViewModel(listingService: listingService,
                                                                keyValueStore: keyValueStore))
     }
     
@@ -47,6 +47,7 @@ extension SearchView {
                 } label: {
                     Image(systemName: "slider.horizontal.3")
                         .resizable()
+                        .foregroundStyle(.blue)
                         .frame(width: 20, height: 20)
                 }
 
@@ -55,12 +56,13 @@ extension SearchView {
                 } label: {
                     Image(systemName: "arrow.up.arrow.down")
                         .resizable()
+                        .foregroundStyle(.blue)
                         .frame(width: 20, height: 20)
                 }
 
                 Spacer()
                 
-                //MARK: I am using star here for the fav filter because in Task the design shows star.
+                //MARK: I am using star here for the fav filter because in Task 1 the design shows star.
                 // I feel like this should also have been heart so that it is consistent with rest of the fav symbol.
                 Button {
                     let impact = UIImpactFeedbackGenerator(style: .light)
@@ -95,6 +97,6 @@ extension SearchView {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(listingsFetching: AppDependencies.preview().listingsFetching, keyValueStore: AppDependencies.preview().keyValueStore)
+        SearchView(listingService: AppDependencies.preview().listingService, keyValueStore: AppDependencies.preview().keyValueStore)
     }
 }
