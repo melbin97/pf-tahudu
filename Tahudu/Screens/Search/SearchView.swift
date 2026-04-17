@@ -43,7 +43,7 @@ extension SearchView {
         HStack(spacing: 20) {
             Group {
                 Button {
-                    //TODO: Do filter
+                    print("Filter button tapped")
                 } label: {
                     Image(systemName: "slider.horizontal.3")
                         .resizable()
@@ -51,7 +51,7 @@ extension SearchView {
                 }
 
                 Button {
-                    //TODO: Do sort
+                    print("Sort button tapped")
                 } label: {
                     Image(systemName: "arrow.up.arrow.down")
                         .resizable()
