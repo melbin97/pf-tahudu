@@ -34,7 +34,7 @@ struct ListingCardView: View {
                             Text(listingInfo.type.rawValue)
                                 .font(.caption)
                                 .foregroundStyle(.gray)
-                            Text("Delivery: \(listingInfo.deliveryYear)")
+                            Text(verbatim: "Delivery: \(listingInfo.deliveryYear)")
                                 .font(.caption2)
                                 .padding(4)
                                 .foregroundColor(.blue)
@@ -46,15 +46,20 @@ struct ListingCardView: View {
                         Text(listingInfo.displayPrice)
                             .bold()
                             .font(.headline)
-                        HStack {
-                            Image(systemName: "house.lodge")
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Image(systemName: "house.lodge")
+                                    .font(.caption)
+                                    .foregroundColor(.black.opacity(0.8))
+                                Text(listingInfo.bedrooms == nil ? "Studio" : "\(listingInfo.bedrooms!) Beds" )
+                                    .font(.caption)
+                                    .foregroundStyle(.black.opacity(0.8))
+                            }
+                            Text(listingInfo.location)
                                 .font(.caption)
-                                .foregroundColor(.black.opacity(0.8))
-                            Text(listingInfo.bedrooms == nil ? "Studio" : "\(listingInfo.bedrooms!) Beds" )
-                                .font(.caption)
-                                .foregroundStyle(.black.opacity(0.8))
+                                .foregroundStyle(.gray)
+                                .lineLimit(1)
                         }
-                        .padding(4)
                     }
                     Spacer()
                 }
@@ -62,9 +67,12 @@ struct ListingCardView: View {
                 Divider()
                 // contact
                 HStack {
-                    Text("Published \(listingInfo.publishedAt.timeAgo())")
-                        .font(.caption)
-                        .foregroundStyle(.gray)
+                    VStack(alignment: .leading) {
+                        Text("Published \(listingInfo.publishedAt.timeAgo())")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                    }
+                    
                     Spacer()
                     HStack(spacing: 12) {
                         ForEach(listingInfo.contactOptions, id: \.self) { option in

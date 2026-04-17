@@ -6,33 +6,59 @@
 //
 import Foundation
 
-enum NetworkError: Error {
+enum NetworkError: Error, LocalizedError {
     case invalidURL
-    case serverError(Int)
-    case decodingError
+    case serverError(statusCode: Int)
+    case decodingError(String)
+    case noInternet
+    case unknown(Error)
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return "The URL provided was invalid."
+        case .serverError(let statusCode):
+            return "The server responded with an error (Status: \(statusCode))."
+        case .decodingError(let message):
+            return message
+        case .noInternet:
+            return "No internet connection. Please check your settings and try again."
+        case .unknown(let error):
+            return error.localizedDescription
+        }
+    }
 }
 
-class URLSessionAPIClient: APIService {
+final class URLSessionAPIClient: APIService {
+    
+    private let session: URLSession
+    
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
+    
     func fetch<T>(url: String) async throws -> T where T : Decodable {
         guard let url = URL(string: url) else {
             throw NetworkError.invalidURL
         }
         
-        let (data, response) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await session.data(from: url)
         
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.serverError(0)
+            throw NetworkError.serverError(statusCode: -999)
         }
         
-        guard httpResponse.statusCode == 200 else {
-            throw NetworkError.serverError(httpResponse.statusCode)
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw NetworkError.serverError(statusCode: httpResponse.statusCode)
         }
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        guard let decoded = try? decoder.decode(T.self, from: data) else {
-            throw NetworkError.decodingError
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch let decodingError {
+            print("DEBUG: Decoding failed: \(decodingError)")
+            throw NetworkError.decodingError("There is an issue reading data. Please try again later.")
         }
-        return decoded
     }
 }

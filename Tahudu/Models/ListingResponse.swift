@@ -11,7 +11,7 @@ struct ListingResponse: Codable {
     let listings: [Listing]
 }
 
-struct Listing: Codable, Identifiable {
+struct Listing: Codable, Identifiable, Equatable {
     let id: String
     let type: PropertyType
     let deliveryYear: Int

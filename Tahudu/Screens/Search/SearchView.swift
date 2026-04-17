@@ -15,18 +15,22 @@ struct SearchView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             toolBar
             ClearableTextField(label: "City, area or building", symbol: "magnifyingglass", text: $viewModel.searchText) { _ in
-                //TODO: print some statement
+                //TODO: So something with input data
             }
-            ScrollView {
-                LazyVStack {
-                    ForEach(viewModel.displayListings) { listing in
-                        ListingCardView(listingInfo: listing, isFavourite: viewModel.isFavourite(id: listing.id)) { contactType in
-                            viewModel.onContactTap(contactType: contactType)
-                        } toggleFavourite: { id in
-                            viewModel.toggleFavourites(id: id)
+            if viewModel.displayListings.isEmpty {
+                noFavourites
+            } else {
+                ScrollView {
+                    LazyVStack {
+                        ForEach(viewModel.displayListings) { listing in
+                            ListingCardView(listingInfo: listing, isFavourite: viewModel.isFavourite(id: listing.id)) { contactType in
+                                viewModel.onContactTap(contactType: contactType)
+                            } toggleFavourite: { id in
+                                viewModel.toggleFavourites(id: id)
+                            }
                         }
                     }
                 }
@@ -70,9 +74,31 @@ extension SearchView {
                 } label: {
                     Image(systemName: viewModel.showFavouritesOnly ? "star.fill" : "star")
                         .resizable()
+                        .foregroundStyle(viewModel.showFavouritesOnly ? .red : .blue)
                         .frame(width: 20, height: 20)
                 }
             }
+        }
+    }
+}
+
+extension SearchView {
+    var noFavourites: some View {
+        VStack {
+            Spacer()
+            HStack(spacing: 4) {
+                Spacer()
+                Image("sad")
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 25, height: 25)
+                    .foregroundStyle(.gray)
+                Text("You don't have any favourites!")
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+                Spacer()
+            }
+            Spacer()
         }
     }
 }
