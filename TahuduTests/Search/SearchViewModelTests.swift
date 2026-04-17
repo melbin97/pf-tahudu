@@ -28,8 +28,12 @@ final class SearchViewModelTests: XCTestCase {
         mockAPI.mockData = ListingResponse(listings: mockData)
         
         let vm = SearchViewModel(listingsFetching: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
+        XCTAssertFalse(vm.isLoading)
+        XCTAssertEqual(vm.listViewState, .emptyState(.noData))
+        
         await vm.getListings()
         
+        XCTAssertFalse(vm.isLoading)
         XCTAssertEqual(vm.listings, mockData)
         XCTAssertEqual(vm.listViewState, SearchViewModel.ListViewState.loaded)
     }
@@ -41,18 +45,8 @@ final class SearchViewModelTests: XCTestCase {
         let vm = SearchViewModel(listingsFetching: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
         await vm.getListings()
         
-        XCTAssertEqual(vm.listViewState, SearchViewModel.ListViewState.error)
-    }
-    
-    func testLoadFavourites() async {
-        let mockData = Listing.mockList()
-        mockAPI.mockData = ListingResponse(listings: mockData)
-        
-        let vm = SearchViewModel(listingsFetching: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
-        
-        vm.toggleFavourites(id: "prop_005")
-        vm.loadFavourites()
-        XCTAssertEqual(vm.favoriteIds, ["prop_005"])
+        XCTAssertTrue(vm.hasError)
+        XCTAssertEqual(vm.listViewState, .apiError)
     }
     
     func testLoadFavouritesFromExistingStorage() {

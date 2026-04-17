@@ -9,12 +9,9 @@ import Foundation
 @MainActor
 class SearchViewModel: ObservableObject {
     @Published var listings: [Listing] = []
-    @Published var listingFilter: ListingFilter = ListingFilter() {
-        didSet {
-            updateListViewState()
-        }
-    }
-    @Published var listViewState: ListViewState = .loading
+    @Published var isLoading: Bool = false
+    @Published var hasError: Bool = false
+    @Published var listingFilter: ListingFilter = ListingFilter()
     
     @Published var favoriteIds: Set<String> = [] {
         didSet {
@@ -22,28 +19,42 @@ class SearchViewModel: ObservableObject {
         }
     }
     
-    private var listingsManager: ListingsService
+    private var listingsManager: ListingService
     private var keyValueStore: StorageService
     
-    var displayListings: [Listing] {
-        listings.filter(listingByFavourite)
-    }
-    
-    init(listingsFetching: ListingsService, keyValueStore: StorageService) {
+    init(listingsFetching: ListingService, keyValueStore: StorageService) {
         self.listingsManager = listingsFetching
         self.keyValueStore = keyValueStore
         self.loadFavourites()
     }
     
+    var displayListings: [Listing] {
+        listings.filter(listingByFavourite)
+    }
+    
+    var listViewState: ListViewState {
+        guard !isLoading else { return .loading }
+        guard !hasError else { return .apiError }
+        guard displayListings.isEmpty else { return .loaded }
+        
+        if listingFilter.showFavouritesOnly {
+            return .emptyState(.noFavourites)
+        } else {
+            return .emptyState(.noData)
+        }
+    }
+    
     func getListings() async {
-        listViewState = .loading
+        defer { isLoading = false }
+        isLoading = true
+        hasError = false
         do {
             let response = try await listingsManager.getListings()
             listings = response.listings
-            updateListViewState()
         } catch(let error) {
             print("DEBUG - SearchViewModel: Listing error: \(error.localizedDescription)")
-            listViewState = .error
+            isLoading = false
+            hasError = true
         }
     }
     
@@ -61,7 +72,6 @@ class SearchViewModel: ObservableObject {
         } else {
             favoriteIds.insert(id)
         }
-        updateListViewState()
     }
     
     func isFavourite(id: String) -> Bool {
@@ -74,24 +84,11 @@ class SearchViewModel: ObservableObject {
     }
 }
 
-
 extension SearchViewModel {
     enum ListViewState: Equatable {
         case loading
         case loaded
-        case error
+        case apiError
         case emptyState(EmptyState)
-    }
-    
-    fileprivate func updateListViewState() {
-        if displayListings.isEmpty {
-            if listingFilter.showFavouritesOnly {
-                listViewState = .emptyState(.noFavourites)
-            } else {
-                listViewState = .emptyState(.noData)
-            }
-        } else {
-            listViewState = .loaded
-        }
     }
 }

@@ -9,7 +9,7 @@ struct SearchView: View {
     
     @StateObject private var viewModel: SearchViewModel
     
-    init(listingsFetching: ListingsService, keyValueStore: StorageService) {
+    init(listingsFetching: ListingService, keyValueStore: StorageService) {
         _viewModel = StateObject(wrappedValue: SearchViewModel(listingsFetching: listingsFetching,
                                                                keyValueStore: keyValueStore))
     }
@@ -23,7 +23,7 @@ struct SearchView: View {
             switch viewModel.listViewState {
             case .loading, .loaded:
                 listings
-            case .error:
+            case .apiError:
                 EmptyStateView(emptyState: .apiError)
             case .emptyState(let emptyState):
                 EmptyStateView(emptyState: emptyState)

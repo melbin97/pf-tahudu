@@ -22,9 +22,11 @@ struct ListingCardView: View {
                     ForEach(listingInfo.images, id: \.self) { image in
                         Image(image.pascalCase)
                             .resizable()
+                            .scaledToFill()
+                            .clipped()
                     }
                 }
-                .cornerRadius(8)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
                 .frame(height: 300)
                 .tabViewStyle(PageTabViewStyle())
                 // apartment details

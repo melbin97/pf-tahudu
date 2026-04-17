@@ -6,7 +6,7 @@
 //
 import Foundation
 
-final class ListingManager: ListingsService {
+final class ListingManager: ListingService {
     
     let apiClient: APIService
     
