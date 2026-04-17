@@ -33,6 +33,7 @@ class SearchViewModel: ObservableObject {
     init(listingsFetching: ListingsService, keyValueStore: StorageService) {
         self.listingsManager = listingsFetching
         self.keyValueStore = keyValueStore
+        self.loadFavourites()
     }
     
     func getListings() async {

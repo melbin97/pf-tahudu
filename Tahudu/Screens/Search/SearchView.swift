@@ -41,9 +41,6 @@ struct SearchView: View {
         .task {
             await viewModel.getListings()
         }
-        .onAppear {
-            viewModel.loadFavourites()
-        }
     }
 }
 
@@ -69,12 +66,17 @@ extension SearchView {
                 }
 
                 Spacer()
+                
+                //MARK: I am using star here for the fav filter because in Task the design shows star.
+                // I feel like this should also have been heart so that it is consistent with rest of the fav symbol.
                 Button {
+                    let impact = UIImpactFeedbackGenerator(style: .light)
+                    impact.impactOccurred()
                     viewModel.showFavouritesOnly.toggle()
                 } label: {
                     Image(systemName: viewModel.showFavouritesOnly ? "star.fill" : "star")
                         .resizable()
-                        .foregroundStyle(viewModel.showFavouritesOnly ? .red : .blue)
+                        .foregroundStyle(viewModel.showFavouritesOnly ? .yellow : .blue)
                         .frame(width: 20, height: 20)
                 }
             }

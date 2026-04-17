@@ -51,7 +51,7 @@ struct ListingCardView: View {
                                 Image(systemName: "house.lodge")
                                     .font(.caption)
                                     .foregroundColor(.black.opacity(0.8))
-                                Text(listingInfo.bedrooms == nil ? "Studio" : "\(listingInfo.bedrooms!) Beds" )
+                                Text(listingInfo.bedroomDisplayName)
                                     .font(.caption)
                                     .foregroundStyle(.black.opacity(0.8))
                             }
@@ -129,8 +129,10 @@ struct ListingCardView: View {
                 .stroke(.gray)
         )
     }
-    
-    func badge(tag: Tag) -> some View {
+}
+
+extension ListingCardView {
+    private func badge(tag: Tag) -> some View {
         
         var color: Color {
             switch tag {
