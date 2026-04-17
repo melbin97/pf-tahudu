@@ -73,8 +73,3 @@ App target — high-level map:
 * Unit tests live under `TahuduTests/Search/` with mocks for `APIService` and `StorageService`.
 * Tests cover successful fetch, failure, favourites persistence, filter behaviour, and empty states.
 
----
-
-
-> [!NOTE]
-> This file describes the implementation as submitted; adjust if the repo evolves after submission.
