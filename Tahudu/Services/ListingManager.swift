@@ -15,6 +15,6 @@ final class ListingManager: ListingService {
     }
     
     func getListings() async throws -> ListingResponse {
-        return try await apiClient.fetch(url: "https://simplejsoncms.com/api/m6nfoc4jlw")
+        return try await apiClient.fetch(url: APIEndpoints.listingURL)
     }
 }

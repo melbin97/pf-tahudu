@@ -15,12 +15,12 @@ struct TahuduTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             SearchView(listingService: dependencies.listingService, keyValueStore: dependencies.keyValueStore)
-                .tag(Tabs.search.rawValue)
+                .tag(Tabs.search)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
             SettingsView()
-                .tag(Tabs.settings.rawValue)
+                .tag(Tabs.settings)
                 .tabItem {
                     Label("My Account", systemImage: "person")
                 }

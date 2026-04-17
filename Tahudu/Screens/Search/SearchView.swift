@@ -8,6 +8,7 @@ import SwiftUI
 struct SearchView: View {
     
     @StateObject private var viewModel: SearchViewModel
+    @FocusState private var isSearchFocused: Bool
     
     init(listingService: ListingService, keyValueStore: StorageService) {
         _viewModel = StateObject(wrappedValue: SearchViewModel(listingService: listingService,
@@ -20,6 +21,7 @@ struct SearchView: View {
             ClearableTextField(label: "City, area or building", symbol: "magnifyingglass", text: $viewModel.listingFilter.searchText) { _ in
                 //TODO: implement search later - out of scope fot Take home assignment.
             }
+            .focused($isSearchFocused)
             switch viewModel.listViewState {
             case .loading, .loaded:
                 listings
@@ -31,6 +33,9 @@ struct SearchView: View {
         }
         .padding(12)
         .redacted(reason: viewModel.listViewState == .loading ? .placeholder : [])
+        .onTapGesture {
+            isSearchFocused = false
+        }
         .task {
             await viewModel.getListings()
         }
@@ -50,7 +55,7 @@ extension SearchView {
                         .foregroundStyle(.blue)
                         .frame(width: 20, height: 20)
                 }
-
+                
                 Button {
                     print("Sort button tapped")
                 } label: {
@@ -59,7 +64,7 @@ extension SearchView {
                         .foregroundStyle(.blue)
                         .frame(width: 20, height: 20)
                 }
-
+                
                 Spacer()
                 
                 //MARK: I am using star here for the fav filter because in Task 1 the design shows star.

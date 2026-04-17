@@ -22,7 +22,6 @@ struct AppDependencies {
     }
 }
 
-// Example mock (put in same file or Previews/Mocks)
 final class MockListingsFetching: ListingService {
     func getListings() async throws -> ListingResponse {
         ListingResponse(listings: Listing.mockList())
@@ -35,6 +34,4 @@ final class MockStorage: StorageService {
     func get<T>(key: StorageKeys) -> T? where T : Decodable {
         return nil
     }
-    
-    
 }

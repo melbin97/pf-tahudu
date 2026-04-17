@@ -28,10 +28,12 @@ class SearchViewModel: ObservableObject {
         self.loadFavourites()
     }
     
+    // Drives the UI list
     var displayListings: [Listing] {
         listings.filter(listingByFavourite)
     }
     
+    // View state
     var listViewState: ListViewState {
         guard !isLoading else { return .loading }
         guard !hasError else { return .apiError }
@@ -44,6 +46,7 @@ class SearchViewModel: ObservableObject {
         }
     }
     
+    // Calls the API service via listing manager
     func getListings() async {
         defer { isLoading = false }
         isLoading = true
@@ -52,8 +55,8 @@ class SearchViewModel: ObservableObject {
             let response = try await listingService.getListings()
             listings = response.listings
         } catch(let error) {
+            //Not using this error now. Showing generic erro screen.
             print("DEBUG - SearchViewModel: Listing error: \(error.localizedDescription)")
-            isLoading = false
             hasError = true
         }
     }
@@ -62,10 +65,12 @@ class SearchViewModel: ObservableObject {
         print("\(contactType.rawValue) Tapped")
     }
     
+    // loads favourites into memory
     func loadFavourites() {
         self.favoriteIds = keyValueStore.get(key: .favourites) ?? []
     }
     
+    // Set a particular listing as fav or remove a listing as fav
     func toggleFavourites(id: String) {
         if favoriteIds.contains(id) {
             favoriteIds.remove(id)
@@ -74,10 +79,12 @@ class SearchViewModel: ObservableObject {
         }
     }
     
+    // Check to see if a listing is fav
     func isFavourite(id: String) -> Bool {
         return favoriteIds.contains(id)
     }
     
+    // For filtering display data
     private func listingByFavourite(_ listing: Listing) -> Bool {
         guard listingFilter.showFavouritesOnly else { return true }
         return isFavourite(id: listing.id)

@@ -54,7 +54,7 @@ final class SearchViewModelTests: XCTestCase {
         
         let vm = SearchViewModel(listingService: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
         // loadFavourites called in init
-        XCTAssertEqual(vm.favoriteIds, ["prop_005", "prop_001"])
+        XCTAssertEqual(vm.favoriteIds, Set(["prop_005", "prop_001"]))
     }
     
     func testToggleFavourites() async {
@@ -100,7 +100,7 @@ final class SearchViewModelTests: XCTestCase {
         
         XCTAssertEqual(vm.listViewState, .emptyState(.noData))
     }
-
+    
     func testEmptyStateWhenNoFavourites() async {
         let mockData = Listing.mockList()
         mockAPI.mockData = ListingResponse(listings: mockData)

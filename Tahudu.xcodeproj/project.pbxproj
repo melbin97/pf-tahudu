@@ -27,6 +27,7 @@
 		BA60963E2F92392A00A71341 /* ListingFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA60963D2F92392200A71341 /* ListingFilter.swift */; };
 		BA6096412F923FDC00A71341 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6096402F923FCA00A71341 /* EmptyStateView.swift */; };
 		BA6096432F9240A100A71341 /* EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6096422F92409D00A71341 /* EmptyState.swift */; };
+		BA6096672F927CF700A71341 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6096662F927CF200A71341 /* AppEnvironment.swift */; };
 		BA8B00072F90D18300C0A1CF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00062F90D18000C0A1CF /* SearchViewModel.swift */; };
 		BA8B000A2F90E90900C0A1CF /* ListingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B00092F90E8FD00C0A1CF /* ListingCardView.swift */; };
 		BA8B000C2F90ECE400C0A1CF /* ListingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8B000B2F90ECDD00C0A1CF /* ListingResponse.swift */; };
@@ -72,6 +73,7 @@
 		BA60963D2F92392200A71341 /* ListingFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingFilter.swift; sourceTree = "<group>"; };
 		BA6096402F923FCA00A71341 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		BA6096422F92409D00A71341 /* EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyState.swift; sourceTree = "<group>"; };
+		BA6096662F927CF200A71341 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		BA8B00062F90D18000C0A1CF /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BA8B00092F90E8FD00C0A1CF /* ListingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCardView.swift; sourceTree = "<group>"; };
 		BA8B000B2F90ECDD00C0A1CF /* ListingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingResponse.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				BA8B002A2F9152B200C0A1CF /* Info.plist */,
+				BA6096652F927CE700A71341 /* Configuration */,
 				BA8B001F2F9123FD00C0A1CF /* Dependencies */,
 				BA8B000F2F9103C600C0A1CF /* Services */,
 				1F479BD226EF181900F863AC /* Components */,
@@ -268,6 +271,14 @@
 				BA60963D2F92392200A71341 /* ListingFilter.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BA6096652F927CE700A71341 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				BA6096662F927CF200A71341 /* AppEnvironment.swift */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		BA8B00082F90E8F600C0A1CF /* Components */ = {
@@ -418,6 +429,7 @@
 				1F479BEB26EF333800F863AC /* ContactButton.swift in Sources */,
 				BA8B00072F90D18300C0A1CF /* SearchViewModel.swift in Sources */,
 				BA6096362F9231A200A71341 /* PreviewData.swift in Sources */,
+				BA6096672F927CF700A71341 /* AppEnvironment.swift in Sources */,
 				BA8B00112F910FE900C0A1CF /* ListingManager.swift in Sources */,
 				1F479BEE26F06FDD00F863AC /* SettingsViewController.swift in Sources */,
 				BA8B00132F9115D500C0A1CF /* String.swift in Sources */,
