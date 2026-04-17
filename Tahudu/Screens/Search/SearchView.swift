@@ -26,9 +26,9 @@ struct SearchView: View {
             case .loading, .loaded:
                 listings
             case .apiError:
-                EmptyStateView(emptyState: .apiError)
+                EmptyStateView(emptyState: .apiError, retry: viewModel.getListings)
             case .emptyState(let emptyState):
-                EmptyStateView(emptyState: emptyState)
+                EmptyStateView(emptyState: emptyState, retry: viewModel.getListings)
             }
         }
         .padding(12)

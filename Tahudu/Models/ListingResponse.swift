@@ -15,7 +15,7 @@ struct Listing: Codable, Identifiable, Equatable {
     let id: String
     let type: PropertyType
     let deliveryYear: Int
-    let price: Int
+    let price: Double
     let currency: String
     let priceInclusive: Bool
     let location: String
@@ -29,7 +29,7 @@ struct Listing: Codable, Identifiable, Equatable {
     let contactOptions: [ContactType]
     
     var displayPrice: String {
-        price.formatted(.currency(code: currency))
+        "\(price.formatted()) \(currency)"
     }
     
     var bedroomDisplayName: String {

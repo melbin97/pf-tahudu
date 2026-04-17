@@ -37,12 +37,13 @@ struct ListingCardView: View {
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                             Text(verbatim: "Delivery: \(listingInfo.deliveryYear)")
+                                .bold()
                                 .font(.caption2)
                                 .padding(4)
-                                .foregroundColor(.blue)
+                                .foregroundColor(.deliveryIndigo)
                                 .background(
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(.blue.opacity(0.2))
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(.indigo.opacity(0.05))
                                 )
                         }
                         Text(listingInfo.displayPrice)

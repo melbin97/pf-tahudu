@@ -8,9 +8,10 @@ import SwiftUI
 
 struct EmptyStateView: View {
     var emptyState: EmptyState
+    var retry: () async -> Void
     
     var body: some View {
-        VStack(alignment: .center, spacing: 8) {
+        VStack(alignment: .center, spacing: 16) {
             Spacer()
             Image(systemName: emptyState.sfIconName)
                 .resizable()
@@ -21,6 +22,19 @@ struct EmptyStateView: View {
                 .multilineTextAlignment(.center)
                 .font(.body)
                 .foregroundStyle(.gray)
+            if emptyState == .apiError {
+                Button {
+                    Task {
+                        await retry()
+                    }
+                } label: {
+                    Text("Try Again")
+                        .padding(.vertical, 4)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.brand)
+            }
             Spacer()
         }
     }
@@ -28,5 +42,5 @@ struct EmptyStateView: View {
 
 
 #Preview {
-    EmptyStateView(emptyState: .noData)
+    EmptyStateView(emptyState: .noData, retry: {})
 }

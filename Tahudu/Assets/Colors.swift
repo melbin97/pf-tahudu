@@ -12,6 +12,7 @@ extension UIColor {
     // MARK: Social Media
 
     static let whatsApp = UIColor(named: "WhatsApp") ?? UIColor.systemGreen
+    static let deliveryIndigo = UIColor(named: "DarkIndigo")
 }
 
 extension Color {
@@ -21,4 +22,6 @@ extension Color {
     // MARK: Social Media
 
     static let whatsApp = Color("WhatsApp")
+    
+    static let deliveryIndigo = Color("DarkIndigo")
 }
