@@ -74,6 +74,7 @@
 		BA6096402F923FCA00A71341 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		BA6096422F92409D00A71341 /* EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyState.swift; sourceTree = "<group>"; };
 		BA6096662F927CF200A71341 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		BA60966F2F92A1AA00A71341 /* IMPLEMENTATION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IMPLEMENTATION.md; sourceTree = "<group>"; };
 		BA8B00062F90D18000C0A1CF /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BA8B00092F90E8FD00C0A1CF /* ListingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCardView.swift; sourceTree = "<group>"; };
 		BA8B000B2F90ECDD00C0A1CF /* ListingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingResponse.swift; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 		1F479B9926EF162000F863AC = {
 			isa = PBXGroup;
 			children = (
+				BA60966F2F92A1AA00A71341 /* IMPLEMENTATION.md */,
 				1F479BE026EF1D3B00F863AC /* README.md */,
 				1F479BA426EF162000F863AC /* Tahudu */,
 				1F479BB526EF162400F863AC /* TahuduTests */,
