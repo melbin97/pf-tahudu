@@ -8,11 +8,13 @@ import Foundation
 
 @MainActor
 class SearchViewModel: ObservableObject {
-    @Published var searchText: String = ""
     @Published var listings: [Listing] = []
-    @Published var isLoading = false
-    @Published var errorMessage: String? = nil
-    @Published var showFavouritesOnly = false
+    @Published var listingFilter: ListingFilter = ListingFilter() {
+        didSet {
+            updateListViewState()
+        }
+    }
+    @Published var listViewState: ListViewState = .loading
     
     @Published var favoriteIds: Set<String> = [] {
         didSet {
@@ -24,10 +26,7 @@ class SearchViewModel: ObservableObject {
     private var keyValueStore: StorageService
     
     var displayListings: [Listing] {
-        if showFavouritesOnly {
-            return listings.filter({ favoriteIds.contains($0.id) })
-        }
-        return listings
+        listings.filter(listingByFavourite)
     }
     
     init(listingsFetching: ListingsService, keyValueStore: StorageService) {
@@ -37,16 +36,14 @@ class SearchViewModel: ObservableObject {
     }
     
     func getListings() async {
-        defer { isLoading = false }
-        
-        isLoading = true
-        errorMessage = nil
-        
+        listViewState = .loading
         do {
             let response = try await listingsManager.getListings()
             listings = response.listings
+            updateListViewState()
         } catch(let error) {
-            errorMessage = error.localizedDescription
+            print("DEBUG - SearchViewModel: Listing error: \(error.localizedDescription)")
+            listViewState = .error
         }
     }
     
@@ -64,9 +61,37 @@ class SearchViewModel: ObservableObject {
         } else {
             favoriteIds.insert(id)
         }
+        updateListViewState()
     }
     
     func isFavourite(id: String) -> Bool {
         return favoriteIds.contains(id)
+    }
+    
+    private func listingByFavourite(_ listing: Listing) -> Bool {
+        guard listingFilter.showFavouritesOnly else { return true }
+        return isFavourite(id: listing.id)
+    }
+}
+
+
+extension SearchViewModel {
+    enum ListViewState: Equatable {
+        case loading
+        case loaded
+        case error
+        case emptyState(EmptyState)
+    }
+    
+    fileprivate func updateListViewState() {
+        if displayListings.isEmpty {
+            if listingFilter.showFavouritesOnly {
+                listViewState = .emptyState(.noFavourites)
+            } else {
+                listViewState = .emptyState(.noData)
+            }
+        } else {
+            listViewState = .loaded
+        }
     }
 }

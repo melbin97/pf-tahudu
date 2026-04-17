@@ -49,15 +49,15 @@ final class URLSessionAPIClient: APIService {
         }
         
         guard (200...299).contains(httpResponse.statusCode) else {
+            print("DEBUG - URLSessionAPIClient: Server Error - status code: \(httpResponse.statusCode)")
             throw NetworkError.serverError(statusCode: httpResponse.statusCode)
         }
-        
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         do {
             return try decoder.decode(T.self, from: data)
         } catch let decodingError {
-            print("DEBUG: Decoding failed: \(decodingError)")
+            print("DEBUG - URLSessionAPIClient: Decoding failed: \(decodingError)")
             throw NetworkError.decodingError("There is an issue reading data. Please try again later.")
         }
     }

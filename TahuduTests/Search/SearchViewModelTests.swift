@@ -28,12 +28,10 @@ final class SearchViewModelTests: XCTestCase {
         mockAPI.mockData = ListingResponse(listings: mockData)
         
         let vm = SearchViewModel(listingsFetching: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
-        vm.isLoading = true
         await vm.getListings()
         
         XCTAssertEqual(vm.listings, mockData)
-        XCTAssertFalse(vm.isLoading, "At the end loading will be set to false")
-        XCTAssertNil(vm.errorMessage)
+        XCTAssertEqual(vm.listViewState, SearchViewModel.ListViewState.loaded)
     }
     
     func testGetListingsFailure() async {
@@ -43,7 +41,7 @@ final class SearchViewModelTests: XCTestCase {
         let vm = SearchViewModel(listingsFetching: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
         await vm.getListings()
         
-        XCTAssertNotNil(vm.errorMessage)
+        XCTAssertEqual(vm.listViewState, SearchViewModel.ListViewState.error)
     }
     
     func testLoadFavourites() async {
@@ -57,13 +55,12 @@ final class SearchViewModelTests: XCTestCase {
         XCTAssertEqual(vm.favoriteIds, ["prop_005"])
     }
     
-    func testLoadFavouritesEmpty() async {
-        let mockData = Listing.mockList()
-        mockAPI.mockData = ListingResponse(listings: mockData)
+    func testLoadFavouritesFromExistingStorage() {
+        mockStorage.save(value: Set(["prop_005", "prop_001"]), key: .favourites)
         
         let vm = SearchViewModel(listingsFetching: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
-        vm.loadFavourites()
-        XCTAssertEqual(vm.favoriteIds, [])
+        // loadFavourites called in init
+        XCTAssertEqual(vm.favoriteIds, ["prop_005", "prop_001"])
     }
     
     func testToggleFavourites() async {
@@ -88,16 +85,36 @@ final class SearchViewModelTests: XCTestCase {
     func testShowFavouritesOnly() async {
         let vm = SearchViewModel(listingsFetching: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
         let mockData = Listing.mockList()
-        let favouritesOnlyMock = [mockData.first(where: {$0.id == "prop_005"})]
+        let favouritesOnlyMock = mockData.filter({ $0.id == "prop_005"})
         mockAPI.mockData = ListingResponse(listings: mockData)
         
         await vm.getListings()
         vm.toggleFavourites(id: "prop_005")
         
-        XCTAssertFalse(vm.showFavouritesOnly)
+        XCTAssertFalse(vm.listingFilter.showFavouritesOnly)
         XCTAssertEqual(vm.displayListings, mockData)
         
-        vm.showFavouritesOnly.toggle()
+        vm.listingFilter.showFavouritesOnly.toggle()
         XCTAssertEqual(vm.displayListings, favouritesOnlyMock)
+    }
+    
+    func testEmptyStateWhenNoListings() async {
+        mockAPI.mockData = ListingResponse(listings: [])
+        let vm = SearchViewModel(listingsFetching: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
+        
+        await vm.getListings()
+        
+        XCTAssertEqual(vm.listViewState, .emptyState(.noData))
+    }
+
+    func testEmptyStateWhenNoFavourites() async {
+        let mockData = Listing.mockList()
+        mockAPI.mockData = ListingResponse(listings: mockData)
+        let vm = SearchViewModel(listingsFetching: ListingManager(apiClient: mockAPI), keyValueStore: mockStorage)
+        
+        await vm.getListings()
+        vm.listingFilter.showFavouritesOnly = true
+        
+        XCTAssertEqual(vm.listViewState, .emptyState(.noFavourites))
     }
 }

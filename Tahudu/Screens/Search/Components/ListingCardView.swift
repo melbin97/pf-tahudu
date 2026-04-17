@@ -110,6 +110,8 @@ struct ListingCardView: View {
                 }
                 Spacer()
                 Button {
+                    let impact = UIImpactFeedbackGenerator(style: .light)
+                    impact.impactOccurred()
                     toggleFavourite(listingInfo.id)
                 } label: {
                     VStack {

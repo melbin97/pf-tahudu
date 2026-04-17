@@ -17,27 +17,20 @@ struct SearchView: View {
     var body: some View {
         VStack(spacing: 8) {
             toolBar
-            ClearableTextField(label: "City, area or building", symbol: "magnifyingglass", text: $viewModel.searchText) { _ in
+            ClearableTextField(label: "City, area or building", symbol: "magnifyingglass", text: $viewModel.listingFilter.searchText) { _ in
                 //TODO: So something with input data
             }
-            if viewModel.displayListings.isEmpty {
-                noFavourites
-            } else {
-                ScrollView {
-                    LazyVStack {
-                        ForEach(viewModel.displayListings) { listing in
-                            ListingCardView(listingInfo: listing, isFavourite: viewModel.isFavourite(id: listing.id)) { contactType in
-                                viewModel.onContactTap(contactType: contactType)
-                            } toggleFavourite: { id in
-                                viewModel.toggleFavourites(id: id)
-                            }
-                        }
-                    }
-                }
+            switch viewModel.listViewState {
+            case .loading, .loaded:
+                listings
+            case .error:
+                EmptyStateView(emptyState: .apiError)
+            case .emptyState(let emptyState):
+                EmptyStateView(emptyState: emptyState)
             }
         }
         .padding(12)
-        .redacted(reason: viewModel.isLoading ? .placeholder : [])
+        .redacted(reason: viewModel.listViewState == .loading ? .placeholder : [])
         .task {
             await viewModel.getListings()
         }
@@ -72,11 +65,11 @@ extension SearchView {
                 Button {
                     let impact = UIImpactFeedbackGenerator(style: .light)
                     impact.impactOccurred()
-                    viewModel.showFavouritesOnly.toggle()
+                    viewModel.listingFilter.showFavouritesOnly.toggle()
                 } label: {
-                    Image(systemName: viewModel.showFavouritesOnly ? "star.fill" : "star")
+                    Image(systemName: viewModel.listingFilter.showFavouritesOnly ? "star.fill" : "star")
                         .resizable()
-                        .foregroundStyle(viewModel.showFavouritesOnly ? .yellow : .blue)
+                        .foregroundStyle(viewModel.listingFilter.showFavouritesOnly ? .yellow : .blue)
                         .frame(width: 20, height: 20)
                 }
             }
@@ -85,22 +78,17 @@ extension SearchView {
 }
 
 extension SearchView {
-    var noFavourites: some View {
-        VStack {
-            Spacer()
-            HStack(spacing: 4) {
-                Spacer()
-                Image("sad")
-                    .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 25, height: 25)
-                    .foregroundStyle(.gray)
-                Text("You don't have any favourites!")
-                    .font(.caption)
-                    .foregroundStyle(.gray)
-                Spacer()
+    var listings: some View {
+        ScrollView {
+            LazyVStack {
+                ForEach(viewModel.displayListings) { listing in
+                    ListingCardView(listingInfo: listing, isFavourite: viewModel.isFavourite(id: listing.id)) { contactType in
+                        viewModel.onContactTap(contactType: contactType)
+                    } toggleFavourite: { id in
+                        viewModel.toggleFavourites(id: id)
+                    }
+                }
             }
-            Spacer()
         }
     }
 }
