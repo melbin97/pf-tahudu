@@ -18,7 +18,7 @@ struct SearchView: View {
         VStack(spacing: 8) {
             toolBar
             ClearableTextField(label: "City, area or building", symbol: "magnifyingglass", text: $viewModel.listingFilter.searchText) { _ in
-                //TODO: So something with input data
+                //TODO: implement search later - out of scope fot Take home assignment.
             }
             switch viewModel.listViewState {
             case .loading, .loaded:
