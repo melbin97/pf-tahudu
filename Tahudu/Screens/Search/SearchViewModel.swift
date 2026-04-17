@@ -55,7 +55,7 @@ class SearchViewModel: ObservableObject {
             let response = try await listingService.getListings()
             listings = response.listings
         } catch(let error) {
-            //Not using this error now. Showing generic erro screen.
+            //Not using this error now. Showing generic error screen.
             print("DEBUG - SearchViewModel: Listing error: \(error.localizedDescription)")
             hasError = true
         }
