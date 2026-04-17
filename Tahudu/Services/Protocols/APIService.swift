@@ -6,6 +6,6 @@
 //
 import Foundation
 
-protocol APIClient {
+protocol APIService {
     func fetch<T: Decodable>(url: String) async throws -> T
 }

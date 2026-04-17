@@ -12,7 +12,7 @@ enum NetworkError: Error {
     case decodingError
 }
 
-class URLSessionAPIClient: APIClient {
+class URLSessionAPIClient: APIService {
     func fetch<T>(url: String) async throws -> T where T : Decodable {
         guard let url = URL(string: url) else {
             throw NetworkError.invalidURL

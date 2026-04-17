@@ -6,11 +6,11 @@
 //
 import Foundation
 
-class ListingManager: ListingsFetching {
+class ListingManager: ListingsService {
     
-    let apiClient: APIClient
+    let apiClient: APIService
     
-    init(apiClient: APIClient) {
+    init(apiClient: APIService) {
         self.apiClient = apiClient
     }
     

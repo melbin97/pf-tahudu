@@ -7,7 +7,7 @@
 import Foundation
 
 struct AppDependencies {
-    let listingsFetching: ListingsFetching
+    let listingsFetching: ListingsService
     let keyValueStore: StorageService
     
     static func live() -> AppDependencies {
@@ -23,7 +23,7 @@ struct AppDependencies {
 }
 
 // Example mock (put in same file or Previews/Mocks)
-final class MockListingsFetching: ListingsFetching {
+final class MockListingsFetching: ListingsService {
     func getListings() async throws -> ListingResponse {
         ListingResponse(listings: Listing.mockList())
     }

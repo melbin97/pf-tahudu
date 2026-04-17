@@ -1,5 +1,5 @@
 //
-//  ListingsFetching.swift
+//  ListingsService.swift
 //  Tahudu
 //
 //  Created by Melbin Mathew on 16/04/26.
@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol ListingsFetching {
+protocol ListingsService {
     func getListings() async throws -> ListingResponse
 }

@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  SearchViewModel.swift
 //  Tahudu
 //
 //  Created by Melbin Mathew on 16/04/26.
@@ -20,7 +20,7 @@ class SearchViewModel: ObservableObject {
         }
     }
     
-    private var listingsManager: ListingsFetching
+    private var listingsManager: ListingsService
     private var keyValueStore: StorageService
     
     var displayListings: [Listing] {
@@ -30,7 +30,7 @@ class SearchViewModel: ObservableObject {
         return listings
     }
     
-    init(listingsFetching: ListingsFetching, keyValueStore: StorageService) {
+    init(listingsFetching: ListingsService, keyValueStore: StorageService) {
         self.listingsManager = listingsFetching
         self.keyValueStore = keyValueStore
     }

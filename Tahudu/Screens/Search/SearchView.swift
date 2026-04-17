@@ -9,7 +9,7 @@ struct SearchView: View {
     
     @StateObject private var viewModel: SearchViewModel
     
-    init(listingsFetching: ListingsFetching, keyValueStore: StorageService) {
+    init(listingsFetching: ListingsService, keyValueStore: StorageService) {
         _viewModel = StateObject(wrappedValue: SearchViewModel(listingsFetching: listingsFetching,
                                                                keyValueStore: keyValueStore))
     }
