@@ -114,12 +114,15 @@ struct ListingCardView: View {
                 Button {
                     let impact = UIImpactFeedbackGenerator(style: .light)
                     impact.impactOccurred()
-                    toggleFavourite(listingInfo.id)
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.5, blendDuration: 0)) {
+                        toggleFavourite(listingInfo.id)
+                    }
                 } label: {
                     VStack {
                         Image(systemName: isFavourite ? "heart.fill" : "heart")
                             .foregroundColor(isFavourite ? .red : .white)
                             .font(.system(size: 20, weight: .medium))
+                            .scaleEffect(isFavourite ? 1.2 : 1.0)
                             .frame(width: 40, height: 40)
                             .background(.ultraThinMaterial)
                             .clipShape(Circle())
