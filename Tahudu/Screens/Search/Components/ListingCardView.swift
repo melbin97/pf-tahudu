@@ -134,7 +134,7 @@ struct ListingCardView: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(.gray)
+                .strokeBorder(Color(UIColor.separator), lineWidth: 1)
         )
     }
 }
